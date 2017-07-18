@@ -16,7 +16,7 @@ func (c Clock) String() string {
 }
 
 func (c Clock) Add(minutes int) Clock {
-	return New(0, (int(c)+ minutes) % 1440)
+	return New(0, int(c)+ minutes)
 }
 
 func mod(n int, d int) int {
