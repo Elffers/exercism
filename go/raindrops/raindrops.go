@@ -4,8 +4,7 @@ import "strconv"
 
 const testVersion = 3
 
-func Convert(num int) string {
-	var output string
+func Convert(num int) (output string) {
 	if num%3 == 0 {
 		output += "Pling"
 	}
@@ -15,10 +14,8 @@ func Convert(num int) string {
 	if num%7 == 0 {
 		output += "Plong"
 	}
-
 	if output == "" {
 		return strconv.Itoa(num)
-	} else {
-		return output
 	}
+	return
 }
