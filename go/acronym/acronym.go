@@ -7,13 +7,14 @@ import (
 
 const testVersion = 3
 
-func Abbreviate(in string) (out string) {
+func Abbreviate(in string) string {
 	words := strings.FieldsFunc(in, Delimiter)
+	var out string
 	for _, word := range words {
-		out += strings.ToUpper(string(word[0]))
+		out += string(word[0])
 	}
 
-	return
+	return strings.ToUpper(out)
 }
 
 func Delimiter(c rune) bool {
