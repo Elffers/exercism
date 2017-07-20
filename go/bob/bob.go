@@ -13,11 +13,11 @@ func Hey(in string) string {
 		return "Fine. Be that way!"
 	}
 
-	if IsYelling(in) == true {
+	if IsYelling(in) {
 		return "Whoa, chill out!"
 	}
 
-	if IsQuestion(in) == true {
+	if strings.HasSuffix(in, "?") {
 		return "Sure."
 	}
 
@@ -26,35 +26,5 @@ func Hey(in string) string {
 }
 
 func IsYelling(in string) bool {
-	words := strings.Fields(in)
-
-	for _, word := range words {
-		if IsAllCaps(word) {
-			return true
-		}
-	}
-	return false
-}
-
-func IsAllCaps(word string) bool {
-	last := string(word[len(word)-1])
-	if strings.ContainsAny(last, "!") {
-		word = word[0 : len(word)-1]
-	}
-
-	if word == "OK" || word == "DMV" {
-		return false
-	}
-
-	for _, char := range word {
-		if !unicode.IsUpper(char) {
-			return false
-		}
-	}
-	return true
-}
-
-func IsQuestion(in string) bool {
-	last := in[len(in)-1]
-	return string(last) == "?"
+	return in == strings.ToUpper(in) && strings.ContainsAny(in, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 }
