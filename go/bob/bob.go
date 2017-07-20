@@ -1,8 +1,8 @@
 package bob
 
 import (
+	"regexp"
 	"strings"
-	"unicode"
 )
 
 const testVersion = 3
@@ -26,5 +26,6 @@ func Hey(in string) string {
 }
 
 func IsYelling(in string) bool {
-	return in == strings.ToUpper(in) && strings.ContainsAny(in, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	hasLetter, _ := regexp.MatchString("[a-zA-Z]", in)
+	return in == strings.ToUpper(in) && hasLetter
 }
