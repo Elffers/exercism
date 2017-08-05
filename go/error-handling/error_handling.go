@@ -1,7 +1,5 @@
 package erratum
 
-import "fmt"
-
 const testVersion = 2
 
 func Use(o ResourceOpener, input string) (err error) {
@@ -18,10 +16,10 @@ func Use(o ResourceOpener, input string) (err error) {
 	defer func() {
 		if p := recover(); p != nil {
 			if frob, ok := p.(FrobError); ok {
-				fmt.Println("FROB")
 				res.Defrob(frob.defrobTag)
 				err = frob.inner
 			}
+			err = p.(error)
 		}
 		res.Close()
 	}()
