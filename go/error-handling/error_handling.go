@@ -9,6 +9,7 @@ func Use(o ResourceOpener, input string) error {
 		if _, ok := err.(TransientError); ok {
 			return Use(o, input)
 		}
+		return err
 	}
 
 	res.Close()
