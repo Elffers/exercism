@@ -4,24 +4,22 @@ import "fmt"
 
 const testVersion = 1
 
-var Members = []Member{
-	{"the house that Jack built.", ""},
-	{"the malt", "lay in"},
-	{"the rat", "ate"},
-	{"the cat", "killed"},
-	{"the dog", "worried"},
-	{"the cow with the crumpled horn", "tossed"},
-	{"the maiden all forlorn", "milked"},
-	{"the man all tattered and torn", "kissed"},
-	{"the priest all shaven and shorn", "married"},
-	{"the rooster that crowed in the morn", "woke"},
-	{"the farmer sowing his corn", "kept"},
-	{"the horse and the hound and the horn", "belonged to"},
-}
-
-type Member struct {
+var members = []struct {
 	subj string
 	verb string
+}{
+	{"house that Jack built.", ""},
+	{"malt", "lay in"},
+	{"rat", "ate"},
+	{"cat", "killed"},
+	{"dog", "worried"},
+	{"cow with the crumpled horn", "tossed"},
+	{"maiden all forlorn", "milked"},
+	{"man all tattered and torn", "kissed"},
+	{"priest all shaven and shorn", "married"},
+	{"rooster that crowed in the morn", "woke"},
+	{"farmer sowing his corn", "kept"},
+	{"horse and the hound and the horn", "belonged to"},
 }
 
 func Song() string {
@@ -36,16 +34,14 @@ func Song() string {
 	return song
 }
 
-func Verse(n int) string {
-	var verse string
-	base := Members[0].subj
+func Verse(n int) (verse string) {
+	verse = "This is the "
+	base := members[0].subj
 
 	for i := n - 1; i > 0; i-- {
-		m := Members[i]
-		verse += fmt.Sprintf("%v\nthat %v", m.subj, m.verb)
-		verse += " "
-
+		m := members[i]
+		verse += fmt.Sprintf("%v\nthat %v the ", m.subj, m.verb)
 	}
 	verse += base
-	return fmt.Sprintf("This is %v", verse)
+	return
 }
