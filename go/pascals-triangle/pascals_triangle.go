@@ -32,3 +32,16 @@ func comb(n, k int) int {
 
 	return out / div
 }
+
+// func Triangle(n int) [][]int {
+// 	tri := make([][]int, n)
+// 	for row := 0; row < n; row++ {
+// 		tri[row] = make([]int, row+1)
+// 		tri[row][0] = 1
+// 		for col := 1; col < row; col++ {
+// 			tri[row][col] = tri[row-1][col-1] + tri[row-1][col]
+// 		}
+// 		tri[row][row] = 1
+// 	}
+// 	return tri
+// }
