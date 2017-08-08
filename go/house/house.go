@@ -1,6 +1,9 @@
 package house
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 const testVersion = 1
 
@@ -23,25 +26,19 @@ var members = []struct {
 }
 
 func Song() string {
-	var song string
-
+	song := make([]string, len(members))
 	for i := 1; i < 13; i++ {
-		song += Verse(i)
-		if i != 12 {
-			song += "\n\n"
-		}
+		song[i-1] = Verse(i)
 	}
-	return song
+	return strings.Join(song, "\n\n")
 }
 
 func Verse(n int) (verse string) {
 	verse = "This is the "
-	base := members[0].subj
-
 	for i := n - 1; i > 0; i-- {
 		m := members[i]
 		verse += fmt.Sprintf("%v\nthat %v the ", m.subj, m.verb)
 	}
-	verse += base
+	verse += members[0].subj
 	return
 }
