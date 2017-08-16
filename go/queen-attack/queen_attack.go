@@ -7,11 +7,16 @@ import (
 
 const testVersion = 2
 
-func CanQueenAttack(w, b string) (bool, error) {
-	var validSquare = regexp.MustCompile(`^[a-h][1-8]$`)
+var validSquareExp = regexp.MustCompile(`^[a-h][1-8]$`)
 
-	if validSquare.MatchString(b) == false || validSquare.MatchString(w) == false {
-		return false, errors.New("Not a square")
+func validSquare(s string) bool {
+	return validSquareExp.MatchString(s)
+}
+
+func CanQueenAttack(w, b string) (bool, error) {
+
+	if !(validSquare(b) && validSquare(w)) {
+		return false, errors.New("Not a valid square")
 	}
 
 	if b == w {
