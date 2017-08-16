@@ -1,7 +1,8 @@
 package summultiples
+
 const testVersion = 2
 
-func SumMultiples(limit int, divisors... int) int {
+func SumMultiples(limit int, divisors ...int) int {
 	multiples := make([]int, 0)
 
 	for _, div := range divisors {
@@ -30,3 +31,16 @@ func appendIfUnique(slice []int, i int) []int {
 	}
 	return append(slice, i)
 }
+
+// Benchmark on following approach is slower (~2.3 versus ~1.3 of above method)
+// func SumMultiples(limit int, divisors ...int) (sum int) {
+// 	for n := 1; n < limit; n++ {
+// 		for _, d := range divisors {
+// 			if n%d == 0 {
+// 				sum += n
+// 				break
+// 			}
+// 		}
+// 	}
+// 	return sum
+// }
