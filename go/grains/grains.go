@@ -15,11 +15,11 @@ func Square(s int) (uint64, error) {
 }
 
 func Total() (sum uint64) {
-	for i := 0; i < 65; i++ {
-		s, err := Square(i)
-		if err == nil {
-			sum += s
-		}
+	s, err := Square(64)
+
+	if err != nil {
+		return 0
 	}
-	return
+
+	return (2 * s) - 1
 }
