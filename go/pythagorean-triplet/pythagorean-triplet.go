@@ -41,16 +41,13 @@ func Range(min, max int) []Triplet {
 
 func Sum(p int) []Triplet {
 	out := []Triplet{}
-	for a := 1; a < p; a++ {
-		for b := a; b < p-a; b++ {
-			c := p - (a + b)
-			t := Triplet{a, b, c}
-			if isPythag(t) {
+	for _, t := range Range(1, p) {
+		a, b, c := t[0], t[1], t[2]
+		if a + b + c == p {
 				out = append(out, t)
-			}
-
 		}
 	}
+
 	return out
 }
 
