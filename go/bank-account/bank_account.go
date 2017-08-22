@@ -1,13 +1,13 @@
 package account
 
-import  "sync"
+import "sync"
 
 const testVersion = 1
 
 type Account struct {
 	open    bool
 	balance int64
-	mtx sync.Mutex
+	mtx     sync.Mutex
 }
 
 func Open(initialDeposit int64) *Account {
@@ -30,23 +30,12 @@ func (a *Account) Close() (payout int64, ok bool) {
 }
 
 func (a *Account) Balance() (balance int64, ok bool) {
-	a.mtx.Lock()
-	defer a.mtx.Unlock()
-	if !a.open {
-		return 0, false
-	}
-
-	return a.balance, true
+	return a.balance, a.open
 }
 
 func (a *Account) Deposit(amount int64) (newBalance int64, ok bool) {
 	a.mtx.Lock()
 	defer a.mtx.Unlock()
-	if !a.open {
-		return 0, false
-	}
-
-
 	newAmount := a.balance + amount
 
 	if newAmount < 0 {
@@ -54,5 +43,5 @@ func (a *Account) Deposit(amount int64) (newBalance int64, ok bool) {
 	}
 	a.balance = newAmount
 
-	return a.balance, true
+	return a.balance, a.open
 }
