@@ -2,7 +2,6 @@ package foodchain
 
 import (
 	"fmt"
-	"strings"
 )
 
 const testVersion = 3
@@ -58,10 +57,10 @@ func Verse(n int) (verse string) {
 }
 
 func Verses(start, end int) string {
-	out := make([]string, end-start+1)
-
-	for i := start; i <= end; i++ {
-		out[i-1] = Verse(i)
+	out := Verse(start)
+	for start < end {
+		start++
+		out += "\n\n" + Verse(start)
 	}
-	return strings.Join(out, "\n\n")
+	return out
 }
