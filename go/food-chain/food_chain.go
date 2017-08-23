@@ -10,7 +10,8 @@ var foodChain = []struct {
 	food    string
 	comment string
 }{
-	{"fly", ""},
+	{"", ""},
+	{"fly", "I don't know why she swallowed the fly. Perhaps she'll die."},
 	{"spider", "It wriggled and jiggled and tickled inside her."},
 	{"bird", "How absurd to swallow a bird!"},
 	{"cat", "Imagine that, to swallow a cat!"},
@@ -20,39 +21,28 @@ var foodChain = []struct {
 	{"horse", "She's dead, of course!"},
 }
 
-var coda = "I don't know why she swallowed the fly. Perhaps she'll die."
-
 func Song() string {
 	return Verses(1, 8)
 }
 
 func Verse(n int) (verse string) {
-	current := foodChain[n-1]
-	verse += fmt.Sprintf("I know an old lady who swallowed a %v.\n", current.food)
-	if n == 1 {
-		return verse + coda
+	current := foodChain[n]
+	verse += fmt.Sprintf("I know an old lady who swallowed a %v.\n%v", current.food, current.comment)
+	if n == 1 || n == 8 {
+		return verse
 	}
 
-	if n == 8 {
-		return verse + current.comment
-	}
-
-	verse += fmt.Sprintf("%v\n", current.comment)
-
-	index := n - 2
-
-	for index >= 0 {
-		next := foodChain[index]
+	for i := n - 1; i > 0; i-- {
+		next := foodChain[i]
 		nextFood := next.food
-		if index == 1 {
+		if i == 2 {
 			nextFood += " that wriggled and jiggled and tickled inside her"
 		}
-		verse += fmt.Sprintf("She swallowed the %v to catch the %v.\n", current.food, nextFood)
-		index--
+		verse += fmt.Sprintf("\nShe swallowed the %v to catch the %v.", current.food, nextFood)
 		current = next
 	}
 
-	verse += coda
+	verse += "\n" + foodChain[1].comment
 	return verse
 }
 
