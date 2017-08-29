@@ -1,49 +1,42 @@
 package luhn
 
 import (
-	"unicode"
+	"strings"
 )
 
 const testVersion = 2
 
 func Valid(in string) bool {
-	num, ok := sanitize(in)
-	if !ok {
+	in = strings.TrimSpace(in)
+
+	if len(in) <= 1 {
 		return false
 	}
 
-	if len(num) <= 1 {
-		return false
-	}
+	sum, double := 0, false
 
-	sum := 0
-	double := false
-	for i := len(num) - 1; i >= 0; i-- {
-		digit := int(num[i] - '0')
-		if double {
-			doubled := digit * 2
-			if doubled > 9 {
-				doubled -= 9
-			}
-			sum += doubled
-		} else {
-			sum += digit
+	for i := len(in) - 1; i >= 0; i-- {
+		r := in[i]
+
+		if r == ' ' {
+			continue
 		}
+
+		if r < '0' || r > '9' {
+			return false
+		}
+
+		digit := int(r - '0')
+
+		if double {
+			digit *= 2
+			if digit > 9 {
+				digit -= 9
+			}
+		}
+		sum += digit
 		double = !double
 	}
 
 	return sum%10 == 0
-}
-
-func sanitize(in string) (string, bool) {
-	out := ""
-	for _, r := range in {
-		if !(unicode.IsNumber(r) || unicode.IsSpace(r)) {
-			return "", false
-		}
-		if unicode.IsNumber(r) {
-			out += string(r)
-		}
-	}
-	return out, true
 }
