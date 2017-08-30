@@ -4,25 +4,17 @@ const testVersion = 1
 
 func Sieve(n int) []int {
 	primes := []int{}
+	sieve := make([]bool, n)
 
-	// Initialize array of all ints from 2 to n
-	nums := []int{}
-	for i := 2; i <= n; i++ {
-		nums = append(nums, i)
-	}
-
-	for len(nums) > 0 {
-		// pop off first element of nums and add to primes
-		prime := nums[0]
-		primes = append(primes, prime)
-		sieved := []int{}
-
-		for _, p := range nums {
-			if p%prime != 0 {
-				sieved = append(sieved, p)
+	for p := 2; p < n; p++ {
+		if !sieve[p] {
+			// element p is prime if value at index p in sieve is false
+			primes = append(primes, p)
+			for multiple := p * 2; multiple < n; multiple += p {
+				// filter out multiples of primes
+				sieve[multiple] = true
 			}
 		}
-		nums = sieved
 	}
 
 	return primes
