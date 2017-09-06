@@ -2,10 +2,9 @@ package twofer
 
 import "fmt"
 
-func ShareWith(in string) string {
-	name := "you"
-	if len(in) != 0 {
-		name = in
+func ShareWith(name string) string {
+	if len(name) == 0 {
+		name = "you"
 	}
 	return fmt.Sprintf("One for %v, one for me.", name)
 }
