@@ -14,10 +14,6 @@ func pop(stack []rune) (rune, []rune) {
 }
 
 func Bracket(in string) (bool, error) {
-	if len(in) == 0 {
-		return true, nil
-	}
-
 	stack := []rune{}
 
 	for _, r := range in {
