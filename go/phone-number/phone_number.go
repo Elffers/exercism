@@ -2,7 +2,6 @@ package phonenumber
 
 import (
 	"fmt"
-	"regexp"
 	"unicode"
 )
 
@@ -21,6 +20,7 @@ func Number(in string) (string, error) {
 	if length < 10 {
 		return "", fmt.Errorf("Less than 10 digits")
 	}
+
 	if length > 11 {
 		return "", fmt.Errorf("More than 11 digits")
 	}
@@ -33,9 +33,7 @@ func Number(in string) (string, error) {
 		out = number
 	}
 
-	validStart := regexp.MustCompile(`[2-9]`)
-
-	if !validStart.MatchString(string(out[0])) || !validStart.MatchString(string(out[3])) {
+	if out[0] < '2' || out[3] < '2' {
 		return "", fmt.Errorf("bad area code or exchange code")
 	}
 
